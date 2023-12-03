@@ -1,12 +1,16 @@
 package com.puru.sample.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import lombok.Data;
 
+
 @Data
+@Entity
 public class UnivData {
 
     @JsonProperty("university")
+    @Id
     public String university;
     @JsonProperty("rank_display")
     public String rankDisplay;
@@ -21,6 +25,7 @@ public class UnivData {
     @JsonProperty("faculty_count")
     public String facultyCount;
     @JsonProperty("location")
+    @OneToOne(targetEntity = Location.class, cascade = CascadeType.ALL)
     public Location location;
 
 }

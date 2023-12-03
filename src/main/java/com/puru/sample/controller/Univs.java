@@ -3,9 +3,7 @@ package com.puru.sample.controller;
 import com.puru.sample.client.GetUnivData;
 import com.puru.sample.dto.UnivData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,12 +12,32 @@ public class Univs {
     @Autowired
     GetUnivData getUnivData;
 
-    @GetMapping("/univ")
+    @GetMapping("/univs/public")
     public List<UnivData> getGlobalUnivs(){
         return getUnivData.getGlobalUnivs();
     }
-    @GetMapping("/univ/{country}")
+
+    @GetMapping("/univs")
+    public List<UnivData> getGlobalUnivsDB(){
+        return getUnivData.getGlobalUnivsDB();
+    }
+    @GetMapping("/univs/{country}")
     public List<UnivData> getGlobalUnivs(@PathVariable String country){
         return getUnivData.getGlobalUnivsPage(country);
+    }
+
+    @GetMapping("/univs/city")
+    public List<UnivData> getGlobalUnivsCity(@RequestParam String city){
+        return getUnivData.getGlobalUnivsCity(city);
+    }
+
+    @PostMapping("/univ")
+    public void saveUniv(@RequestBody UnivData univ){
+         getUnivData.saveUniv(univ);
+    }
+
+    @PostMapping("/univs")
+    public void saveUniv(@RequestBody List<UnivData> univ){
+        getUnivData.saveAllUniv(univ);
     }
 }
